@@ -14,7 +14,7 @@ int main (int argc, char **argv)
     double t = 2.;                   // temperature (kT)
     double h = 0.;                   // magnetic field
     double j = 1.;                   // ferromagnetic coupling
-    double tmin = 2., tmax = 3., t;
+    double tmin = 2., tmax = 3.;//, t;
     int lx = 32;
     int ly = lx;
 
@@ -30,7 +30,7 @@ int main (int argc, char **argv)
         exit(1);
     }
 
-    print_header (&model, stderr);
+    print_header (&model, stderr, tmin, tmax);
 
     int therm_steps = mcsteps / 4;
     int report = therm_steps / 32;
@@ -83,7 +83,7 @@ int main (int argc, char **argv)
     printf ("%.3f   %.3f     % f  %f     % f  %f\n", t, h, mav, 
         xi, eav, cv);
     t += dt;
-    ising_reinit(&model, h, double t);
+    ising_reinit(&model, h, t);
     }
 
     ising_free (model); 
@@ -96,7 +96,7 @@ void print_header (struct ising *model, FILE *fp, double tmin, double tmax)
     fprintf (fp, "\n");
     fprintf (fp, " Two-dimensional Ising model - Metropolis simulation\n");
     fprintf (fp, " ---------------------------------------------------\n");
-    fprintf (fp, " T/J = %.3f  H/J = %.3f  %dx%d\n\n", model->T/model->J, 
+    fprintf (fp, " Tmin/J = %.3f  Tmax/J = %.3f  H/J = %.3f  %dx%d\n\n", tmin/model->J, tmax/model->J,
         model->H/model->J, model->Lx, model->Ly);
 }
 

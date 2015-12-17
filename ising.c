@@ -42,7 +42,7 @@ int ising_init (struct ising *model, int lx, int ly, double jc, double h, double
     unsigned long seed = 1UL;
     gsl_rng_set(r, seed);
     model->seed = seed;
-    model->cluster = NULL;
+    //model->cluster = NULL;
 
     int **s = matrix_allocate_int (lx, ly);
     if (s == NULL)
@@ -75,10 +75,10 @@ void ising_reinit (struct ising *model, double h, double t)
 
 void ising_free (struct ising model)
 {
-    if (model.cluster != NULL)
-    {
-        matrix_free (model.cluster);
-    }
+    //if (model.cluster != NULL)
+    //{
+    //    matrix_free (model.cluster);
+    //}
     matrix_free (model.s);
     gsl_rng_free (model.r);
 }
