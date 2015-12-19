@@ -27,9 +27,6 @@ LDLIBS    = $(shell gsl-config --libs)
 %.d : %.c
 	$(MAKEDEPEND) $< -MF $@
 
-%.res: ising-demo-%
-	./$< > $@
-
 all: ising-demo-metropolis
 
 OBJSM = ising-demo-metropolis.o ising.o metropolis.o matrixmem.o progressbar.o
@@ -39,6 +36,9 @@ DEPSM = $(OBJSM:.o=.d)
 
 ising-demo-metropolis: headers_m $(OBJSM)
 	$(CC) $(LDFLAGS) $(OBJSM) $(LDLIBS) -o $@
+
+png: res
+	gnuplot ising-triangular.gp
 
 headers_m:
 	@#$(foreach var,$(SRCSM),touch --reference=$(var) $(var:.c=.h);)

@@ -19,7 +19,7 @@ int main (int argc, char **argv)
     int ly = lx;
 
     int mcsteps = 1024 * 128;   // 2^{17}
-    int nt = 20;
+    int nt = 40;
     double dt = (tmax - tmin) / (nt - 1);
 
     t = tmin;
